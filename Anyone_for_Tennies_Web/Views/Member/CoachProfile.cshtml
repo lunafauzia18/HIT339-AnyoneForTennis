@@ -1,0 +1,89 @@
+﻿@model AnyoneForTennis.Models.Coach
+
+@{
+    ViewData["Title"] = "Coach Profile";
+}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-color: #e8f5ff;
+        color: #333;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #ffffff;
+        background-color: #003366;
+        text-align: center;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    h3 {
+        color: #004494;
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 1.1em;
+        line-height: 1.6;
+        text-align: center;
+        color: #555;
+        margin: 10px 0;
+    }
+
+    img {
+        max-width: 300px;
+        border-radius: 10px;
+        margin: 20px auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: block;
+    }
+
+    .profile-container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .back-link {
+        display: inline-block;
+        text-align: center;
+        margin-top: 20px;
+        color: #6D83F2;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        transition: background 0.3s, color 0.3s;
+    }
+
+        .back-link:hover {
+            background-color: #F25E73;
+            color: #ffffff;
+        }
+</style>
+
+<div class="profile-container">
+    <h2>Coach Profile</h2>
+    <h3>@Model.FirstName @Model.LastName</h3>
+    <p>@Model.Biography</p>
+    <img src="@Model.Photo" alt="Image of Coach" />
+    <a class="back-link" asp-action="MySchedules">Back to Coaches List</a>
+</div>

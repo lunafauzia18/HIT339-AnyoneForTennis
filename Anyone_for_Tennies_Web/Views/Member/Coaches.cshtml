@@ -1,0 +1,123 @@
+﻿@model IEnumerable<AnyoneForTennis.Models.Coach>
+
+@{
+    ViewData["Title"] = "Coaches";
+}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-color: #e8f5ff;
+        color: #333;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #ffffff;
+        background-color: #003366;
+        text-align: center;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin: 15px;
+        padding: 20px;
+        width: 280px;
+        transition: transform 0.3s;
+        text-align: center;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+    .card-header {
+        font-weight: bold;
+        color: #004494;
+        border-bottom: 2px solid #004494;
+        margin-bottom: 15px;
+        font-size: 1.2em;
+    }
+
+    .card-body {
+        margin-bottom: 15px;
+        color: #555;
+    }
+
+    .profile-link {
+        display: inline-block;
+        margin-top: 10px;
+        color: #6D83F2;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 8px 12px;
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        transition: background 0.3s, color 0.3s;
+    }
+
+        .profile-link:hover {
+            background-color: #F25E73;
+            color: #fff;
+        }
+
+    .alert {
+        text-align: center;
+        width: 100%;
+        background-color: #e7f1ff;
+        border: 1px solid #b8e1ff;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<h2>Coaches</h2>
+
+<div class="container">
+    @if (!Model.Any())
+
+    {
+        <div class="alert">
+            No coaches available.
+        </div>
+    }
+
+    else
+
+    {
+        @foreach (var coach in Model)
+
+        {
+            <div class="card">
+                <div class="card-header">
+                    @coach.FirstName @coach.LastName
+                </div>
+                <div class="card-body">
+                    <p><strong>Biography:</strong></p>
+                    <p>@coach.Biography</p>
+                </div>
+                <a href="@Url.Action("CoachProfile", "Member", new { id = coach.CoachId })" class="profile-link">View Profile</a>
+            </div>
+        }
+    }
+</div>

@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Anyone For Tennis</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/tennis.styles.css" asp-append-version="true" />
+
+    <style>
+        /* General Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #e8f5ff;
+            color: #333;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            header .logo {
+                font-weight: bold;
+                font-size: 1.5rem;
+                color: #fff;
+                text-decoration: none;
+            }
+
+            header nav a {
+                color: #fff;
+                text-decoration: none;
+                margin: 0 0.5rem;
+                transition: color 0.3s;
+            }
+
+                header nav a:hover {
+                    text-decoration: underline;
+                    color: #d1e7ff;
+                }
+
+        /* Main Welcome Section */
+        .welcome-section {
+            background: url('https://getwallpapers.com/wallpaper/full/3/f/4/383051.jpg') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+            .welcome-section .welcome-text h1 {
+                font-size: 3rem;
+            }
+
+            .welcome-section .welcome-text p {
+                font-size: 1.2rem;
+                margin: 1rem 0;
+            }
+
+            .welcome-section .learn-more {
+                padding: 0.5rem 1rem;
+                background-color: #0056b3;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+                font-size: 1rem;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+
+                .welcome-section .learn-more:hover {
+                    background-color: #004494;
+                }
+
+        /* Table Section Styling */
+        .table-section {
+            margin: 2rem auto;
+            width: 90%;
+            max-width: 800px;
+            background-color: #003366;
+            padding: 1rem;
+            border-radius: 10px;
+            color: #fff;
+            text-align: center;
+        }
+
+            .table-section h2 {
+                margin-bottom: 1rem;
+                color: #d1e7ff;
+            }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #004494;
+            color: #fff;
+        }
+
+        th, td {
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #d1e7ff;
+        }
+
+        .action-btn {
+            background-color: #004494;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            .action-btn:hover {
+                background-color: #003366;
+            }
+
+        /* Footer Styling */
+        footer {
+            background-color: #003366;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-top: 3px solid #002244;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a class="logo" asp-area="" asp-controller="Home" asp-action="Index">
+            <img src="~/images/anyonefortennis.png" alt="Anyone For Tennis Logo" style="max-height: 40px; margin-right: 10px;">
+            Anyone For Tennis
+        </a>
+        
+        <nav>
+            <a href="/">Home</a>
+            @* Conditionally rendered links for different roles *@
+            @if (User.IsInRole("Member"))
+            {
+                <a href="/Member/MySchedules">My Schedules</a>
+                <a href="/Member/Coaches">Coaches</a>
+                <a href="/Member/Enroll">Enroll</a>
+            }
+            @if (User.IsInRole("Coach"))
+            {
+                <a href="/Coach/MySchedules">My Schedules</a>
+            }
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="/Admin/AllSchedules">All Schedules</a>
+                <a href="/Admin/CreateSchedule">Create Schedule</a>
+                <a href="/Admin/AssignCoach">Assign Coach</a>
+                <a href="/Admin/ViewMembers">Members List</a>
+            }
+        </nav>
+        <partial name="_LoginPartial" />
+    </header>
+
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <div class="welcome-text">
+            <h1>Welcome to Anyone For Tennis!</h1>
+            <p>Your premier place for tennis schedules, coaches, and more.</p>
+            <button class="learn-more">Learn More</button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 - Anyone For Tennis
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

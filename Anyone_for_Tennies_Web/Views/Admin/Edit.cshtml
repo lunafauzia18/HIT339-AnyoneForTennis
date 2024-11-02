@@ -1,0 +1,143 @@
+﻿@model AnyoneForTennis.Models.Schedule
+
+@{
+    ViewData["Title"] = "Edit Schedule";
+}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-color: #e8f5ff;
+        color: #333;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #ffffff;
+        background-color: #003366;
+        text-align: center;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .control-label {
+        font-weight: bold;
+        color: #003366;
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+
+    .form-control {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        width: 100%;
+        transition: border-color 0.3s;
+        font-size: 14px;
+    }
+
+        .form-control:focus {
+            border-color: #6D83F2;
+            outline: none;
+            box-shadow: 0 0 5px rgba(109, 131, 242, 0.5);
+        }
+
+    .text-danger {
+        color: #d9534f;
+    }
+
+    .btn-primary {
+        background-color: #6D83F2;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+        font-size: 14px;
+        width: 100%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+        .btn-primary:hover {
+            background-color: #F25E73;
+            transform: scale(1.05);
+        }
+
+    .back-link {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+        text-decoration: none;
+        color: #6D83F2;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+        .back-link:hover {
+            text-decoration: underline;
+            color: #F25E73;
+        }
+</style>
+
+<h1>Edit Schedule</h1>
+
+<div class="form-container">
+    <form asp-action="Edit">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Location" class="control-label"></label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Date" class="control-label"></label>
+            <input asp-for="Date" class="form-control" type="date" />
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CoachId" class="control-label"></label>
+            <select asp-for="CoachId" class="form-control" asp-items="ViewBag.Coaches"></select>
+            <span asp-validation-for="CoachId" class="text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="ScheduleId" />
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn-primary" />
+        </div>
+    </form>
+</div>
+
+<div>
+    <a class="back-link" asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

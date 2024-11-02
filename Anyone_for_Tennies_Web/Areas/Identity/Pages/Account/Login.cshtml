@@ -1,0 +1,165 @@
+﻿@page
+@model LoginModel
+@{
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+
+    ViewData["Title"] = "Log in";
+}
+
+<style>
+    /* Reset and Font Styling */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    /* Background Styling */
+    body {
+        min-height: 100vh;
+        background-color: #e8f5ff;
+        display: block;
+    }
+
+    /* Center Container Styling */
+    .center-container {
+        display: block;
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        padding-top: 5vh;
+        text-align: center;
+    }
+
+    /* Login Container Styling */
+    .login-container {
+        background-color: #003366;
+        border-radius: 10px;
+        color: #fff;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Header Styling */
+    .login-header {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: #d1e7ff;
+    }
+
+    /* Form Styling */
+    .login-form {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        color: #333;
+        text-align: left;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+        .form-group label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+            font-size: 1rem;
+            color: #333;
+        }
+
+            .form-group input:focus {
+                border-color: #6D83F2;
+                background: #fff;
+                outline: none;
+            }
+
+    /* Checkbox Styling */
+    .checkbox {
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+        .checkbox label {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #333;
+        }
+
+        .checkbox input {
+            accent-color: #6D83F2;
+        }
+
+    /* Submit Button Styling */
+    .submit-btn {
+        width: 100%;
+        background-color: #F25E73;
+        color: #fff;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        margin-top: 1rem;
+        transition: background-color 0.3s;
+    }
+
+        .submit-btn:hover {
+            background-color: #C94C5E;
+        }
+
+    /* Validation Error Styling */
+    .error-text {
+        color: #F25E73;
+        font-size: 0.85rem;
+        margin-top: 5px;
+    }
+</style>
+
+<!-- Login Page Content -->
+<div class="center-container">
+    <div class="login-container">
+        <div class="login-header">
+            Log In
+        </div>
+        <form class="login-form" id="loginForm" method="post">
+            <div asp-validation-summary="ModelOnly" class="error-text" role="alert"></div>
+
+            <div class="form-group">
+                <label asp-for="Input.Email">Email</label>
+                <input asp-for="Input.Email" autocomplete="username" />
+                <span asp-validation-for="Input.Email" class="error-text"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Password">Password</label>
+                <input asp-for="Input.Password" autocomplete="current-password" type="password" />
+                <span asp-validation-for="Input.Password" class="error-text"></span>
+            </div>
+
+            <div class="checkbox">
+                <label asp-for="Input.RememberMe">
+                    <input asp-for="Input.RememberMe" />
+                    Remember Me
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">Log In</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

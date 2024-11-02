@@ -1,0 +1,179 @@
+﻿@model AnyoneForTennis.Models.Schedule
+
+@{
+    ViewData["Title"] = "Schedule Details";
+}
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background-color: #e8f5ff;
+        color: #333;
+        padding: 20px;
+    }
+
+    h1 {
+        color: #ffffff;
+        background-color: #003366;
+        text-align: center;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .table-section {
+        margin: 2rem auto;
+        width: 90%;
+        max-width: 800px;
+        background-color: #003366;
+        padding: 1rem;
+        border-radius: 10px;
+        color: #fff;
+        text-align: center;
+    }
+
+        .table-section h2 {
+            margin-bottom: 1rem;
+            color: #d1e7ff;
+        }
+
+    .details-section {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    dl.row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    dt {
+        font-weight: bold;
+        color: #003366;
+        width: 30%;
+    }
+
+    dd {
+        margin-left: 0;
+        color: #555;
+        width: 70%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    thead {
+        background-color: #004494;
+        color: #fff;
+    }
+
+    th, td {
+        padding: 0.8rem;
+        text-align: left;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:hover {
+        background-color: #d1e7ff;
+    }
+
+    .text-center {
+        text-align: center;
+        color: #666;
+    }
+
+    .action-links {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        .action-links a {
+            background-color: #004494;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+            .action-links a:hover {
+                background-color: #003366;
+            }
+</style>
+
+<h1>Schedule Details</h1>
+
+<div class="details-section">
+    <h2>Schedule Information</h2>
+    <dl class="row">
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+        <dt>Location</dt>
+        <dd>@Model.Location</dd>
+        <dt>Date</dt>
+        <dd>@Model.Date.ToString("MM/dd/yyyy")</dd>
+        <dt>Coach</dt>
+        <dd>@(Model.Coach != null ? $"{Model.Coach.FirstName} {Model.Coach.LastName}" : "Not Assigned")</dd>
+
+    </dl>
+</div>
+
+<div class="table-section">
+    <h2>Enrolled Members</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.MemberSchedules != null && Model.MemberSchedules.Any())
+            {
+
+                foreach (var memberSchedule in Model.MemberSchedules)
+
+                {
+                    <tr>
+                        <td>@memberSchedule.Member?.FirstName ?? "N/A"</td>
+                        <td>@memberSchedule.Member?.LastName ?? "N/A"</td>
+                        <td>@memberSchedule.Member?.Email ?? "N/A"</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3" class="text-center">No members enrolled.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="action-links">
+    <a asp-action="Edit" asp-route-id="@Model.ScheduleId">Edit</a>
+    <a asp-action="Index">Back to List</a>
+</div>
